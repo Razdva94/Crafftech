@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: Task API
+  version: 1.0.0
+  description: API для управления задачами
+servers:
+  - url: http://localhost:3001
+paths:
+  /tasks:
+    get:
+      summary: Получить все задачи
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+    post:
+      summary: Создать новую задачу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTask'
+      responses:
+        '201':
+          description: Задача успешно создана
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+  /tasks/{id}:
+    get:
+      summary: Получить задачу по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+    put:
+      summary: Обновить задачу
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTask'
+      responses:
+        '200':
+          description: Задача успешно обновлена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+    delete:
+      summary: Удалить задачу
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Задача успешно удалена
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: 'Задача'
+        description:
+          type: string
+          example: 'Описание задачи'
+        status:
+          type: string
+          enum: [ONGOING, COMPLETED]
+          example: 'ONGOING'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2024-01-01T12:00:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2024-01-01T12:00:00Z'
+    NewTask:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          minLength: 3
+          example: 'Новая задача'
+        description:
+          type: string
+          example: 'Описание новой задачи'
+    UpdateTask:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 'Обновленная задача'
+        description:
+          type: string
+          example: 'Обновленное описание задачи'
+        status:
+          type: string
+          enum: [ONGOING, COMPLETED]
+          example: 'COMPLETED'
