@@ -15,7 +15,7 @@
 
 Для запуска проекта необходимо выполнить следующие действия:
 
-1. Склонировать проект на ваш компьютер с [Github](https://github.com/Razdva94/Craffftech) с помощью команды:
+1. Склонировать проект на ваш компьютер с [Github](https://github.com/Razdva94/Crafftech) с помощью команды:
 
 ```
 git clone https://github.com/Razdva94/Crafftech.git
