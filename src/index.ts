@@ -8,7 +8,7 @@ import { errors } from 'celebrate';
 import taskRouter from './routes/task.router';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 
 const file = fs.readFileSync('./swagger.yaml', 'utf8');
 const swaggerDocument = YAML.parse(file);
